@@ -20,8 +20,8 @@
 			$stmt->execute();					
 		}
 		public function recuperarCliente() {
-			$query = 'SELECT * from clientes WHERE id = id';
-			$stmt = $this->conexao->prepare($query);
+			$query = 'SELECT id, nome from clientes' ;
+			$stmt = $this->conexao->prepare($query);			
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		}
@@ -29,26 +29,28 @@
 		
 	}
 
-class CadastroSerVeiculo  {
-	private $conexao;
-	private $veiculo ;
-	public function __construct (Conexao $conexao, Veiculos $veiculo) {
-		$this->conexao = $conexao->conectar();
-		$this->veiculo = $veiculo;
+	class CadastroSerVeiculo  {
+		private $conexao;
+		private $veiculo ;
+	
+		public function __construct (Conexao $conexao, Veiculos $veiculo) {
+			$this->conexao = $conexao->conectar();
+			$this->veiculo = $veiculo;
+		}
+	
+		public function cadastrarVeiculo (){
+			$query = "INSERT INTO veiculos (cliente_id, marca, modelo, ano, placa, cor) VALUES (:cliente_id, :marca, :modelo, :ano, :placa, :cor)";
+			$stmt = $this->conexao->prepare($query);
+	
+			$stmt->bindValue(':cliente_id', $this->veiculo->__get('cliente_id'));
+			$stmt->bindValue(':marca', $this->veiculo->__get('marca'));
+			$stmt->bindValue(':modelo', $this->veiculo->__get('modelo'));
+			$stmt->bindValue(':ano', $this->veiculo->__get('ano'));
+			$stmt->bindValue(':placa', $this->veiculo->__get('placa'));
+			$stmt->bindValue(':cor', $this->veiculo->__get('cor'));
+			$stmt->execute();
+		}
 	}
-	public function cadastrarVeiculo (){
-		$query = "INSERT INTO veiculos (cliente_id, marca, modelo, ano, placa, cor) VALUES (:cliente_id, :marca, :modelo, :ano, :placa, :cor)";
-		$stmt = $this->conexao->prepare($query);		
-        $stmt->bindParam(':cliente_id', $this->veiculo->__get('cliente_id'));
-        $stmt->bindParam(':marca', $this->veiculo->__get('marca'));
-        $stmt->bindParam(':modelo', $this->veiculo->__get('modelo'));
-        $stmt->bindParam(':ano', $this->veiculo->__get('ano'));
-        $stmt->bindParam(':placa', $this->veiculo->__get('placa'));
-        $stmt->bindParam(':cor', $this->veiculo->__get('cor'));
-        $stmt->execute();
-
-	}
-}
 
 
 ?>

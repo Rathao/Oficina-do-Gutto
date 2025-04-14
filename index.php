@@ -2,24 +2,15 @@
 require 'backend/conexao.php';
 require 'backend/oficina_model.php';
 require 'backend/oficina_service.php';
-// try {
-//     $query = "SELECT id, nome FROM clientes ORDER BY nome";
-//     $stmt_clientes = $this->pdo->prepare($query);
-//     $stmt_clientes->execute();
-//     $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
-    
-// } catch (PDOException $e) {
-//     echo "Erro ao buscar dados: " . $e->getMessage();
-//     $clientes = [];
-// }
+
 $conexao = new Conexao;
 $cliente = new Clientes;
 
-$clientes = new CadastroService($conexao, $cliente);  
-$clientes->recuperarCliente() ;
-echo '<pre>';
-print_r($clientes);
-echo '<pre>';
+$clienteservice = new CadastroService($conexao, $cliente);  
+$clientes = $clienteservice->recuperarCliente() ;
+// echo '<pre>';
+// print_r($clientes);
+// echo '<pre>';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -125,7 +116,7 @@ echo '<pre>';
                                 <label for="cliente_id_veiculo">Cliente:</label>
                                 <select class="form-control" id="cliente_id_veiculo" name="cliente_id_veiculo" required>'   '
                                     <option value="">Selecione o Cliente</option>
-                                    <?php foreach ($clientes as $cliente): ?>
+                                    <?php foreach ($clientes as $key => $cliente): ?>
                                         <option value="<?php echo $cliente['id']; ?>"><?php echo htmlspecialchars($cliente['nome']); ?></option>
                                     <?php endforeach; ?>
                                 </select>
