@@ -1,14 +1,25 @@
 <?php
-require_once 'backend/conexao.php';
+require 'backend/conexao.php';
+require 'backend/oficina_model.php';
+require 'backend/oficina_service.php';
+// try {
+//     $query = "SELECT id, nome FROM clientes ORDER BY nome";
+//     $stmt_clientes = $this->pdo->prepare($query);
+//     $stmt_clientes->execute();
+//     $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
+    
+// } catch (PDOException $e) {
+//     echo "Erro ao buscar dados: " . $e->getMessage();
+//     $clientes = [];
+// }
+$conexao = new Conexao;
+$cliente = new Clientes;
 
-try {
-    $stmt_clientes = $pdo->query("SELECT id, nome FROM clientes ORDER BY nome");
-    $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
-   
-} catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
-    $clientes = [];   
-}
+$clientes = new CadastroService($conexao, $cliente);  
+$clientes->recuperarCliente() ;
+echo '<pre>';
+print_r($clientes);
+echo '<pre>';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,26 +79,26 @@ try {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="formCadastroCliente" method="post" action="backend/cadastrar_clientes.php">
+                        <form id="formCadastroCliente" method="POST"   action="backend/oficina_controller.php?acao=inserir_cliente">
                             <div class="form-group">
                                 <label for="nome_cliente">Nome:</label>
-                                <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
+                                <input type="text" class="form-control" id="nome_cliente" name="nome" required>
                             </div>
                             <div class="form-group">
-                                <label for="cpf_cnpj_cliente">CPF/CNPJ:</label>
-                                <input type="text" class="form-control" id="cpf_cnpj_cliente" name="cpf_cnpj_cliente" required>
+                                <label for="cpf_cnpj">CPF/CNPJ:</label>
+                                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" required>
                             </div>
                             <div class="form-group">
-                                <label for="telefone_cliente">Telefone:</label>
-                                <input type="text" class="form-control" id="telefone_cliente" name="telefone_cliente">
+                                <label for="telefone">Telefone:</label>
+                                <input type="text" class="form-control" id="telefone" name="telefone">
                             </div>
                             <div class="form-group">
-                                <label for="email_cliente">Email:</label>
-                                <input type="email" class="form-control" id="email_cliente" name="email_cliente">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email">
                             </div>
                             <div class="form-group">
-                                <label for="endereco_cliente">Endereço:</label>
-                                <input type="text" class="form-control" id="endereco_cliente" name="endereco_cliente">
+                                <label for="endereco">Endereço:</label>
+                                <input type="text" class="form-control" id="endereco" name="endereco">
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -109,7 +120,7 @@ try {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="formCadastroVeiculo" method="post" action="backend/cadastrar_veiculos.php" >
+                        <form id="formCadastroVeiculo" method="post" action="backend/oficina_controller.php?acao=inserir_veiculos" >
                         <div class="form-group">
                                 <label for="cliente_id_veiculo">Cliente:</label>
                                 <select class="form-control" id="cliente_id_veiculo" name="cliente_id_veiculo" required>'   '
