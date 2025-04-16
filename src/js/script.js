@@ -8,7 +8,7 @@ $(document).ready(function() {
         var endereco_cliente = $('#endereco_cliente').val();
 
         $.ajax({
-            url: '../backend/cadastar_clientes.php',
+            url: '../backend/oficina_controller.php',
             type: 'post',
             data: {
                 nome_cliente: nome_cliente,

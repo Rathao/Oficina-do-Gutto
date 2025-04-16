@@ -8,9 +8,7 @@ $cliente = new Clientes;
 
 $clienteservice = new CadastroService($conexao, $cliente);  
 $clientes = $clienteservice->recuperarCliente() ;
-// echo '<pre>';
-// print_r($clientes);
-// echo '<pre>';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -113,33 +111,33 @@ $clientes = $clienteservice->recuperarCliente() ;
                     <div class="modal-body">
                         <form id="formCadastroVeiculo" method="post" action="backend/oficina_controller.php?acao=inserir_veiculos" >
                         <div class="form-group">
-                                <label for="cliente_id_veiculo">Cliente:</label>
-                                <select class="form-control" id="cliente_id_veiculo" name="cliente_id_veiculo" required>'   '
+                                <label for="cliente_id">Cliente:</label>
+                                <select class="form-control" id="cliente_id" name="cliente_id" required>
                                     <option value="">Selecione o Cliente</option>
                                     <?php foreach ($clientes as $key => $cliente): ?>
-                                        <option value="<?php echo $cliente['id']; ?>"><?php echo htmlspecialchars($cliente['nome']); ?></option>
+                                        <option value="<?php echo $cliente->id; ?>"><?php echo htmlspecialchars($cliente->nome); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="marca_veiculo">Marca:</label>
-                                <input type="text" class="form-control" id="marca_veiculo" name="marca_veiculo" required>
+                                <label for="marca">Marca:</label>
+                                <input type="text" class="form-control" id="marca" name="marca" required>
                             </div>
                             <div class="form-group">
-                                <label for="modelo_veiculo">Modelo:</label>
-                                <input type="text" class="form-control" id="modelo_veiculo" name="modelo_veiculo" required>
+                                <label for="modelo">Modelo:</label>
+                                <input type="text" class="form-control" id="modelo" name="modelo" required>
                             </div>
                             <div class="form-group">
-                                <label for="ano_veiculo">Ano:</label>
-                                <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" required>
+                                <label for="ano">Ano:</label>
+                                <input type="number" class="form-control" id="ano" name="ano" required>
                             </div>
                             <div class="form-group">
-                                <label for="placa_veiculo">Placa:</label>
-                                <input type="text" class="form-control" id="placa_veiculo" name="placa_veiculo" required>
+                                <label for="placa">Placa:</label>
+                                <input type="text" class="form-control" id="placa" name="placa" required>
                             </div>
                             <div class="form-group">
-                                <label for="cor_veiculo">Cor:</label>
-                                <input type="text" class="form-control" id="cor_veiculo" name="cor_veiculo">
+                                <label for="cor">Cor:</label>
+                                <input type="text" class="form-control" id="cor" name="cor">
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

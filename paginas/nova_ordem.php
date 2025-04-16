@@ -1,18 +1,15 @@
 <?php
-require_once '../backend/conexao.php';
+require '../backend/conexao.php';
+require '../backend/oficina_model.php';
+require '../backend/oficina_service.php';
+$conexao = new Conexao;
+$salvarOrdemServico = new OrdensServico;
+$ordemServico = new OrdemServico($conexao, $salvarOrdemServico);
+$dados = $ordemServico->getDados();
 
-try {
-    $stmt_clientes = $pdo->query("SELECT id, nome FROM clientes ORDER BY nome");
-    $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
-
-    $stmt_veiculos = $pdo->query("SELECT id, marca, modelo, placa FROM veiculos ORDER BY marca, modelo");
-    $veiculos = $stmt_veiculos->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
-    $clientes = [];
-    $veiculos = [];
-}
+$status = new Status;
+$novostatus = new StatusService($conexao, $status);
+$selecionar = $novostatus->recuperarStatus();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,14 +23,14 @@ try {
 <body>
     <div class="container mt-5">
         <h2>Nova Ordem de Serviço</h2>
-        <form action="../backend/processar_nova_ordem.php" method="POST">
+        <form action="../backend/oficina_controller.php?acao=nova_ordem" method="POST">
 
            <div class="form-group">
                 <label for="cliente_id">Cliente:</label>
                 <select class="form-control" id="cliente_id" name="cliente_id" required>
                     <option value="">Selecione o Cliente</option>
-                    <?php foreach ($clientes as $cliente): ?>
-                        <option value="<?php echo $cliente['id']; ?>"><?php echo htmlspecialchars($cliente['nome']) . ' (ID: ' . $cliente['id'] . ')'; ?></option>
+                    <?php foreach ($dados as $key): ?>
+                        <option value="<?php echo $key->cliente_id; ?>"><?php echo htmlspecialchars($key->nome); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -41,8 +38,8 @@ try {
                 <label for="veiculo_id">Veículo:</label>
                 <select class="form-control" id="veiculo_id" name="veiculo_id" required>
                     <option value="">Selecione o Veículo</option>
-                    <?php foreach ($veiculos as $veiculo): ?>
-                        <option value="<?php echo $veiculo['id']; ?>"><?php echo htmlspecialchars($veiculo['marca'] . ' ' . $veiculo['modelo'] . ' - Placa: ' . $veiculo['placa'] . ' (ID: ' . $veiculo['id'] . ')'); ?></option>
+                    <?php foreach ($dados as $key): ?>
+                        <option value="<?php echo $key->veiculo_id; ?>"><?php echo htmlspecialchars($key->modelo); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -68,12 +65,11 @@ try {
             </div>
             <div class="form-group">
                 <label for="status">Status da Ordem:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="Em Aberto">Em Aberto</option>
-                    <option value="Em Andamento">Em Andamento</option>
-                    <option value="Aguardando Peças">Aguardando Peças</option>
-                    <option value="Concluído">Concluído</option>
-                    <option value="Entregue">Entregue</option>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="">Selecione o Status</option>
+                    <?php foreach ($selecionar as $key): ?>
+                        <option value="<?php echo $key->status; ?>"><?php echo htmlspecialchars($key->status); ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Criar Ordem de Serviço</button>

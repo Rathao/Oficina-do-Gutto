@@ -35,7 +35,8 @@ class Veiculos {
 		return $this;
 	}
 }
-class OrdensServicos {	
+class OrdensServico {	
+	private $id;
 	private $cliente_id;
 	private $veiculo_id;
 	private $data_abertura;
@@ -55,6 +56,7 @@ class OrdensServicos {
 	}
 }
 class Agendamentos {	
+	private $id;
 	private $cliente_id;
 	private $veiculo_id;
 	private $data_agendamento;
@@ -70,5 +72,19 @@ class Agendamentos {
 		return $this;
 	}
 }
+class Status {	
+	private $id;
+	private $status;
+		   
+	public function __get($atributo) {
+		return $this->$atributo;
+	}
+
+	public function __set($atributo, $valor) {
+		$this->$atributo = $valor;
+		return $this;
+	}
+}
+
 
 ?>

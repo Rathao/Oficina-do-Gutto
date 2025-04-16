@@ -1,10 +1,10 @@
 <?php
-// Lógica responsável pelo processo CRUD mo cadastro de cliente.
+// Lógica responsável pelo processo no cadastro de cliente.
 require 'conexao.php';
 require 'oficina_model.php';
 require 'oficina_service.php';
 
-$acao = isset($_GET['acao']) ? $_GET['acao'] : ''; // Inicializa $acao com string vazia caso não esteja definida na URL
+$acao = isset($_GET['acao']) ? $_GET['acao'] : ''; 
 
 
 if($acao == 'inserir_cliente') {
@@ -21,6 +21,7 @@ if($acao == 'inserir_cliente') {
     $cadastroService->cadastrarCliente();
 
     echo "cliente cadastrado com sucesso!";
+    header('Location: ../index.php');
 // } else if ($acao == 'listar') {
 //     // Lógica para listar clientes
 //     $pdo = new Conexao();
@@ -100,17 +101,14 @@ if($acao == 'inserir_cliente') {
 //         echo "<p><a href='?acao=listar'>Voltar para a lista de clientes</a></p>";
 //     }
 
-} else {
-    // Outras ações ou nenhuma ação especificada
-    echo "Nenhuma ação especificada.";
 }
 
-// Lógica responsável pelo processo CRUD mo cadastro de veiculos.
+// Lógica responsável pelo processo no cadastro de veiculos.
  
-if($acao == 'inserir_veiculos') {
+if($acao == 'inserir_veiculos') {   
     $veiculo = new Veiculos();
     $veiculo->__set('cliente_id', $_POST['cliente_id']);
-    $veiculo->__set('marca ', $_POST['marca']);
+    $veiculo->__set('marca', $_POST['marca']);
     $veiculo->__set('modelo', $_POST['modelo']);
     $veiculo->__set('ano', $_POST['ano']);
     $veiculo->__set('placa', $_POST['placa']);   
@@ -122,6 +120,29 @@ if($acao == 'inserir_veiculos') {
     $CadastroSerVeiculo->cadastrarVeiculo();
 
   echo "Veiculo cadastrado com sucesso!";
+  header('Location: ../index.php');
 }
+// Lógica responsável pelo processo no cadastro de novas ordens.
+if ($acao == 'nova_ordem') {
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
+    $novaordem = new OrdensServico();
+    $novaordem->__set('cliente_id', $_POST['cliente_id']);
+    $novaordem->__set('veiculo_id', $_POST['veiculo_id']);
+    $novaordem->__set('data_abertura', $_POST['data_abertura']);
+    $novaordem->__set('descricao_problema', $_POST['descricao_problema']);
+    $novaordem->__set('servicos_realizados', $_POST['servicos_realizados']);
+    $novaordem->__set('pecas_utilizadas', $_POST['pecas_utilizadas']);   
+    $novaordem->__set('valor_total', $_POST['valor_total']);
+    $novaordem->__set('status', $_POST['status']);
 
+    $conexao = new Conexao();
+
+    $novasordens = new OrdemServico($conexao, $novaordem);
+    $novasordens->salvarOrdemServico();
+
+    echo 'Sua ordem de serviço foi cadastrada.';
+
+}
 ?>
