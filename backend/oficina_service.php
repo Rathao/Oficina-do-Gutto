@@ -91,17 +91,30 @@ class OrdemServico {
 	}
 	public function salvarOrdemServico(){
 		$query =
-		'INSERT INTO ordens_servico (cliente_id, veiculo_id, descricao_problema, servicos_realizados, pecas_utilizadas, valor_total, status )
+		'INSERT INTO ordens_servico (cliente_id, veiculo_id, data_abertura, descricao_problema, servicos_realizados, pecas_utilizadas, valor_total, status )
 		VALUES (:cliente_id, :veiculo_id, :data_abertura, :descricao_problema, :servicos_realizados, :pecas_utilizadas, :valor_total, :status )	';
 		$stmt = $this->conexao->prepare($query);
 		$stmt->bindValue(':cliente_id', $this->salvarOrdemServico->__get('cliente_id'));
 		$stmt->bindValue(':veiculo_id', $this->salvarOrdemServico->__get('veiculo_id'));
 		$stmt->bindValue(':data_abertura', $this->salvarOrdemServico->__get('data_abertura'));
-		$stmt->bindValue(':descricao_problema', $this->salvarOrdemServico->__get('decricao_problema'));
+		$stmt->bindValue(':descricao_problema', $this->salvarOrdemServico->__get('descricao_problema'));
 		$stmt->bindValue(':servicos_realizados', $this->salvarOrdemServico->__get('servicos_realizados'));
 		$stmt->bindValue(':pecas_utilizadas', $this->salvarOrdemServico->__get('pecas_utilizadas'));
 		$stmt->bindValue(':valor_total', $this->salvarOrdemServico->__get('valor_total'));
 		$stmt->bindValue(':status', $this->salvarOrdemServico->__get('status'));		
+		$stmt->execute();
+	}
+	public function listarOdemServico(){
+		$query = 'SELECT c.id AS cliente_id, c.nome AS cliente_nome, v.id AS veiculo_id, v.modelo AS veiculo_modelo, os.*
+		FROM ordens_servico os INNER JOIN clientes c ON os.cliente_id = c.id INNER JOIN veiculos v ON os.veiculo_id = v.id;';
+		$stmt = $this->conexao->prepare($query);		
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+	} public function editarOrdemServico(){
+		$query = 'UPDATE FROM ordens_servico WHERE id = :id';
+		$stmt = $this->conexao->prepare($query);
+		$stmt->bindValue(':id', $this->salvarOrdemServico->__get('id'));
 		$stmt->execute();
 	}
 }

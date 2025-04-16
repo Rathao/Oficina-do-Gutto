@@ -9,13 +9,18 @@
 </head>
 <body>
     <div class="container mt-5">
+    <?php if( isset($_GET['acao']) && $_GET['acao'] == 'criada_dado' ) { ?>
+      <div class="bg-success pt-2 text-white d-flex justify-content-center">
+        <h5>dado de Serviço cadastrada com sucesso!</h5>
+      </div>
+    <?php } ?>
+
         <h2>Lista de Ordens de Serviço</h2>
         <?php
-            // Incluir o arquivo PHP para buscar as ordens de serviço
-            require_once '../backend/listar_ordens.php';
-            
-
-            if (!empty($ordens)) {
+                     
+            $dados = json_decode($_GET['dados'],true);   
+           
+            if (!empty($dados)) {
                 echo '<table class="table table-striped">';
                 echo '<thead>';
                 echo '<tr>';
@@ -29,25 +34,25 @@
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';                
-                foreach ($ordens as $ordem) {
+                foreach ($dados as $dado) {
                     echo '<tr>';
-                    echo '<td>' . $ordem['id'] . '</td>';
-                    echo '<td>' . $ordem['clientes'] . '</td>';                   
-                    echo '<td>' . $ordem['veiculos'] . '</td>';
-                    echo '<td>' . $ordem['data_abertura'] . '</td>';
-                    echo '<td>' . $ordem['status'] . '</td>';
-                    echo '<td>' . number_format($ordem['valor_total'], 2, ',', '.') . '</td>';
+                    echo '<td>' . $dado['id'] . '</td>';
+                    echo '<td>' . $dado['cliente_nome'] . '</td>';                   
+                    echo '<td>' . $dado['veiculo_modelo'] . '</td>';
+                    echo '<td>' . $dado['data_abertura'] . '</td>';
+                    echo '<td>' . $dado['status'] . '</td>';
+                    echo '<td>' . number_format($dado['valor_total'], 2, ',', '.') . '</td>';
                     echo '<td>';
-                    echo '<a href="editar_ordem.php?id=' . $ordem['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
-                    echo '<a href="../backend/cancelar_ordem.php?id=' . $ordem['id'] . '" class="btn btn-danger btn-sm">Cancelar</a>';
-                    echo '<a href="../backend/exclusao_ordens.php?id=' . $ordem['id'] . '" class="btn btn-danger btn-sm">Excluir</a>';
+                    echo '<a href="editar_ordem.php?id=' . $dado['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
+                    echo '<a href="../backend/cancelar_ordem.php?id=' . $dado['id'] . '" class="btn btn-danger btn-sm">Cancelar</a>';
+                    echo '<a href="../backend/exclusao_ordens.php?id=' . $dado['id'] . '" class="btn btn-danger btn-sm">Excluir</a>';
                     echo '</td>';
                     echo '</tr>';
                 }
                 echo '</tbody>';
                 echo '</table>';
             } else {
-                echo '<p>Nenhuma ordem de serviço encontrada.</p>';
+                echo '<p>Nenhuma dado de serviço encontrada.</p>';
             }
         ?>
         <div class="mt-3">

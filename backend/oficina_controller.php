@@ -123,10 +123,7 @@ if($acao == 'inserir_veiculos') {
   header('Location: ../index.php');
 }
 // Lógica responsável pelo processo no cadastro de novas ordens.
-if ($acao == 'nova_ordem') {
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
+if ($acao == 'nova_ordem') {   
     $novaordem = new OrdensServico();
     $novaordem->__set('cliente_id', $_POST['cliente_id']);
     $novaordem->__set('veiculo_id', $_POST['veiculo_id']);
@@ -143,6 +140,19 @@ if ($acao == 'nova_ordem') {
     $novasordens->salvarOrdemServico();
 
     echo 'Sua ordem de serviço foi cadastrada.';
+    header('Location: ../paginas/listar_ordens.php?acao=criada_ordem');
+}else if ($acao == 'listar') {  
+    $conexao = new Conexao;
+    $salvarOrdemServico = new OrdensServico;
+    $ordemServico = new OrdemServico($conexao, $salvarOrdemServico);
+    $dados = $ordemServico->listarOdemServico();
+    $url = '../paginas/listar_ordens.php?dados='.urlencode(json_encode($dados));
+    header ('Location:'.$url);
+    exit;
 
+//     
+}else if ($acao == 'editar_ordem') {
+    
 }
+
 ?>

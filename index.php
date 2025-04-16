@@ -41,7 +41,7 @@ $clientes = $clienteservice->recuperarCliente() ;
                         <h5 class="card-title">Ordens de Serviço</h5>
                         <p class="card-text">Gerenciar as ordens de serviço da oficina.</p>
                         <a href="paginas/nova_ordem.php" class="btn btn-success">Nova Ordem</a>
-                        <a href="paginas/listar_ordens.php" class="btn btn-info ml-2">Listar Ordens</a>
+                        <a href="backend/oficina_controller.php?acao=listar" class="btn btn-info ml-2">Listar Ordens</a>
                     </div>
                 </div>
             </div>

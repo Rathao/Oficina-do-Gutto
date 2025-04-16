@@ -12,7 +12,7 @@
         <h2>Editar Ordem de Serviço</h2>
         <?php
             // Incluir o arquivo PHP para buscar os dados da ordem de serviço para edição
-            require_once '../backend/obter_ordem.php';
+           
 
             if (isset($ordem)) {
                 ?>
