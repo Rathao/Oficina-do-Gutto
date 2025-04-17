@@ -9,9 +9,14 @@
 </head>
 <body>
     <div class="container mt-5">
-    <?php if( isset($_GET['acao']) && $_GET['acao'] == 'criada_dado' ) { ?>
+    <?php if( isset($_GET['acao']) && $_GET['acao'] == 'criada_ordem' ) { ?>
       <div class="bg-success pt-2 text-white d-flex justify-content-center">
-        <h5>dado de Serviço cadastrada com sucesso!</h5>
+        <h5>Ordem de Serviço cadastrada com sucesso!</h5>
+      </div>
+    <?php } ?>
+    <?php if( isset($_GET['acao']) && $_GET['acao'] == 'ordem_editada' ) { ?>
+      <div class="bg-success pt-2 text-white d-flex justify-content-center">
+        <h5>Ordem de Serviço editada com sucesso!</h5>
       </div>
     <?php } ?>
 
@@ -52,7 +57,7 @@
                 echo '</tbody>';
                 echo '</table>';
             } else {
-                echo '<p>Nenhuma dado de serviço encontrada.</p>';
+                echo '<p>Nenhuma ordem de serviço encontrada.</p>';
             }
         ?>
         <div class="mt-3">

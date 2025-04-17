@@ -112,10 +112,20 @@ class OrdemServico {
 		return $stmt->fetchAll(PDO::FETCH_OBJ);
 
 	} public function editarOrdemServico(){
-		$query = 'UPDATE FROM ordens_servico WHERE id = :id';
+		$query = 'UPDATE `ordens_servico`
+					SET cliente_id = ?,
+						veiculo_id = ?; 
+						data_abertura = ?,
+						descricao_problema = ?, 
+						servicos_realizados = ? , 
+						pecas_utilizadas = ?,
+						valor_total = ?,
+						status = ?
+		          WHERE id = :id';
 		$stmt = $this->conexao->prepare($query);
 		$stmt->bindValue(':id', $this->salvarOrdemServico->__get('id'));
 		$stmt->execute();
+		
 	}
 }
 

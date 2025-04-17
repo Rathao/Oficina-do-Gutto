@@ -22,90 +22,10 @@ if($acao == 'inserir_cliente') {
 
     echo "cliente cadastrado com sucesso!";
     header('Location: ../index.php');
-// } else if ($acao == 'listar') {
-//     // Lógica para listar clientes
-//     $pdo = new Conexao();
-//     $cadastroService = new CadastroService($pdo, new Clientes()); // Passa uma nova instância de Clientes
-//     $clientes = $cadastroService->listarClientes();
 
-//     echo "<h2>Lista de Clientes</h2>";
-//     if (!empty($clientes)) {
-//         echo "<ul>";
-//         foreach ($clientes as $cliente) {
-//             echo "<li>ID: " . htmlspecialchars($cliente->id) . "<br>";
-//             // Supondo que a classe Clientes tenha atributos como nome, email, etc.
-//             foreach ($cliente->cliente as $chave => $valor) {
-//                 echo htmlspecialchars($chave) . ": " . htmlspecialchars($valor) . "<br>";
-//             }
-//             echo "<a href='?acao=editar&id=" . htmlspecialchars($cliente->id) . "'>Editar</a> | ";
-//             echo "<a href='?acao=remover&id=" . htmlspecialchars($cliente->id) . "'>Remover</a></li><br>";
-//         }
-//         echo "</ul>";
-//     } else {
-//         echo "Nenhum cliente cadastrado.";
-//     }
+// Lógica responsável pelo processo no cadastro de Veiculos.
 
-// } else if ($acao == 'editar' && isset($_GET['id'])) {
-//     // Lógica para exibir o formulário de edição de um cliente
-//     $id_cliente = $_GET['id'];
-//     $pdo = new Conexao();
-//     $cadastroService = new CadastroService($pdo, new Clientes());
-//     $cliente = $cadastroService->recuperarCliente($id_cliente);
-
-//     if ($cliente) {
-//         echo "<h2>Editar Cliente</h2>";
-//         echo "<form method='post' action='?acao=atualizar&id=" . htmlspecialchars($cliente->id) . "'>";
-//         // Supondo que a estrutura de $cliente->cliente seja um array associativo
-//         if (is_array($cliente->cliente)) {
-//             foreach ($cliente->cliente as $chave => $valor) {
-//                 echo "<label for='" . htmlspecialchars($chave) . "'>" . htmlspecialchars(ucfirst($chave)) . ":</label><br>";
-//                 echo "<input type='text' id='" . htmlspecialchars($chave) . "' name='" . htmlspecialchars($chave) . "' value='" . htmlspecialchars($valor) . "'><br><br>";
-//             }
-//         }
-//         echo "<input type='submit' value='Atualizar Cliente'>";
-//         echo "</form>";
-//     } else {
-//         echo "Cliente não encontrado.";
-//     }
-
-// } else if ($acao == 'atualizar' && isset($_GET['id'])) {
-//     // Lógica para atualizar os dados de um cliente
-//     $id_cliente = $_GET['id'];
-//     $cliente = new Clientes();
-//     $cliente->id = $id_cliente;
-//     $cliente->cliente = $_POST; // Associa os dados do formulário para atualização
-
-//     $pdo = new Conexao();
-//     $cadastroService = new CadastroService($pdo, $cliente);
-//     if ($cadastroService->atualizarCliente()) {
-//         echo "Cliente atualizado com sucesso!";
-//         echo "<p><a href='?acao=listar'>Voltar para a lista de clientes</a></p>";
-//     } else {
-//         echo "Erro ao atualizar o cliente.";
-//         echo "<p><a href='?acao=listar'>Voltar para a lista de clientes</a></p>";
-//     }
-
-// } else if ($acao == 'remover' && isset($_GET['id'])) {
-//     // Lógica para remover um cliente
-//     $id_cliente = $_GET['id'];
-//     $cliente = new Clientes();
-//     $cliente->id = $id_cliente;
-
-//     $pdo = new Conexao();
-//     $cadastroService = new CadastroService($pdo, $cliente);
-//     if ($cadastroService->removerCliente()) {
-//         echo "Cliente removido com sucesso!";
-//         echo "<p><a href='?acao=listar'>Voltar para a lista de clientes</a></p>";
-//     } else {
-//         echo "Erro ao remover o cliente.";
-//         echo "<p><a href='?acao=listar'>Voltar para a lista de clientes</a></p>";
-//     }
-
-}
-
-// Lógica responsável pelo processo no cadastro de veiculos.
- 
-if($acao == 'inserir_veiculos') {   
+}else if ($acao == 'inserir_veiculos') {   
     $veiculo = new Veiculos();
     $veiculo->__set('cliente_id', $_POST['cliente_id']);
     $veiculo->__set('marca', $_POST['marca']);
@@ -121,9 +41,9 @@ if($acao == 'inserir_veiculos') {
 
   echo "Veiculo cadastrado com sucesso!";
   header('Location: ../index.php');
-}
-// Lógica responsável pelo processo no cadastro de novas ordens.
-if ($acao == 'nova_ordem') {   
+
+  // Lógica responsável pelo processo no cadastro de novas ordens.
+}else if ($acao == 'nova_ordem') {   
     $novaordem = new OrdensServico();
     $novaordem->__set('cliente_id', $_POST['cliente_id']);
     $novaordem->__set('veiculo_id', $_POST['veiculo_id']);
@@ -141,18 +61,33 @@ if ($acao == 'nova_ordem') {
 
     echo 'Sua ordem de serviço foi cadastrada.';
     header('Location: ../paginas/listar_ordens.php?acao=criada_ordem');
-}else if ($acao == 'listar') {  
+
+}else if ($acao =='listar' || $acao =='criada_ordem' || $acao =='ordem_editada') {  
     $conexao = new Conexao;
     $salvarOrdemServico = new OrdensServico;
     $ordemServico = new OrdemServico($conexao, $salvarOrdemServico);
-    $dados = $ordemServico->listarOdemServico();
+    $dados = $ordemServico->listarOdemServico();    
     $url = '../paginas/listar_ordens.php?dados='.urlencode(json_encode($dados));
-    header ('Location:'.$url);
-    exit;
+    header ('Location:'.$url);    
 
-//     
+  
 }else if ($acao == 'editar_ordem') {
-    
+    $editarOrdem = new OrdensServico();
+    $editarOrdem->__set('cliente_id', $_POST['cliente_id']);
+    $editarOrdem->__set('veiculo_id', $_POST['veiculo_id']);
+    $editarOrdem->__set('data_abertura', $_POST['data_abertura']);
+    $editarOrdem->__set('descricao_problema', $_POST['descricao_problema']);
+    $editarOrdem->__set('servicos_realizados', $_POST['servicos_realizados']);
+    $editarOrdem->__set('pecas_utilizadas', $_POST['pecas_utilizadas']);   
+    $editarOrdem->__set('valor_total', $_POST['valor_total']);
+    $editarOrdem->__set('status', $_POST['status']);
+
+    $conexao = new Conexao();
+
+    $editarOrdens = new OrdemServico($conexao, $editarOrdem);   
+    $editarOrdens->editarOrdemServico();
+
+    header('Location:../paginas/listar_ordem.php?acao=ordem_editada');
 }
 
 ?>
