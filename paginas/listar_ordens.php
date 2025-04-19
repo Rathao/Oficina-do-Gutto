@@ -50,7 +50,7 @@
                     echo '<td>';
                     echo '<a href="editar_ordem.php?id=' . $dado['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
                     echo '<a href="../backend/cancelar_ordem.php?id=' . $dado['id'] . '" class="btn btn-danger btn-sm">Cancelar</a>';
-                    echo '<a href="../backend/exclusao_ordens.php?id=' . $dado['id'] . '" class="btn btn-danger btn-sm">Excluir</a>';
+                    echo '<a href="../backend/oficina_controller.php?acao=excluir_ordem" class="btn btn-danger btn-sm">Excluir</a>';
                     echo '</td>';
                     echo '</tr>';
                 }

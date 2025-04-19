@@ -113,28 +113,31 @@ class OrdemServico {
 
 	} public function editarOrdemServico(){
 		$query = 'UPDATE `ordens_servico`
-					SET cliente_id = ?,
-						veiculo_id = ?; 
-						data_abertura = ?,
-						descricao_problema = ?, 
-						servicos_realizados = ? , 
-						pecas_utilizadas = ?,
-						valor_total = ?,
-						status = ?
-		          WHERE id = :id';
+					SET  
+					cliente_id = ?, veiculo_id = ?,
+					data_abertura = ?, descricao_problema = ?,
+					servicos_realizados = ?, pecas_utilizadas = ?, 
+					valor_total = ?, status = ?
+					WHERE 
+					id = ?';
+		$stmt = $this->conexao->prepare($query);		
+		$stmt->bindValue(1, $this->salvarOrdemServico->__get('cliente_id'));
+		$stmt->bindValue(2, $this->salvarOrdemServico->__get('veiculo_id'));
+		$stmt->bindValue(3, $this->salvarOrdemServico->__get('data_abertura'));
+		$stmt->bindValue(4, $this->salvarOrdemServico->__get('descricao_problema'));
+		$stmt->bindValue(5, $this->salvarOrdemServico->__get('servicos_realizados'));
+		$stmt->bindValue(6, $this->salvarOrdemServico->__get('pecas_utilizadas'));
+		$stmt->bindValue(7, $this->salvarOrdemServico->__get('valor_total'));
+		$stmt->bindValue(8, $this->salvarOrdemServico->__get('status'));
+		$stmt->bindValue(9, $this->salvarOrdemServico->__get('id'));
+		$stmt->execute();	
+		
+	}
+	public function excluirOrdemServico(){
+		$query = 'DELETE FROM ordens_servico WHERE id = :id';
 		$stmt = $this->conexao->prepare($query);
 		$stmt->bindValue(':id', $this->salvarOrdemServico->__get('id'));
 		$stmt->execute();
-		
 	}
 }
-
-
-
-
-
-
-
-
-
 ?>

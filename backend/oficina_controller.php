@@ -62,7 +62,7 @@ if($acao == 'inserir_cliente') {
     echo 'Sua ordem de serviço foi cadastrada.';
     header('Location: ../paginas/listar_ordens.php?acao=criada_ordem');
 
-}else if ($acao =='listar' || $acao =='criada_ordem' || $acao =='ordem_editada') {  
+}else if ($acao =='listar' || $acao =='criada_ordem' || $acao =='ordem_editada' || $acao == 'ordem_excluida') {  
     $conexao = new Conexao;
     $salvarOrdemServico = new OrdensServico;
     $ordemServico = new OrdemServico($conexao, $salvarOrdemServico);
@@ -71,7 +71,7 @@ if($acao == 'inserir_cliente') {
     header ('Location:'.$url);    
 
   
-}else if ($acao == 'editar_ordem') {
+}else if ($acao == 'editar_ordem') {  
     $editarOrdem = new OrdensServico();
     $editarOrdem->__set('cliente_id', $_POST['cliente_id']);
     $editarOrdem->__set('veiculo_id', $_POST['veiculo_id']);
@@ -87,7 +87,18 @@ if($acao == 'inserir_cliente') {
     $editarOrdens = new OrdemServico($conexao, $editarOrdem);   
     $editarOrdens->editarOrdemServico();
 
-    header('Location:../paginas/listar_ordem.php?acao=ordem_editada');
+    header('Location: oficina_controller.php?acao=ordem_editada');
 }
+else if ($acao == 'excluir_ordem') {  
+    $editarOrdem = new OrdensServico();
+    $editarOrdem->__set(':id', $_POST['id']); 
+    $conexao = new Conexao();
+
+    $editarOrdens = new OrdemServico($conexao, $editarOrdem);   
+    $editarOrdens->excluirOrdemServico();
+
+    header('Location: oficina_controller.php?acao=ordem_excluida');
+}
+
 
 ?>

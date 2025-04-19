@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Ordem de Serviço</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Editar Ordem de Serviço</h2>
-        <?php
+<?php
             // Incluir o arquivo PHP para buscar os dados da ordem de serviço para edição
             require '../backend/conexao.php';
             require '../backend/oficina_model.php';
@@ -23,11 +11,27 @@
             $status = new Status;
             $novostatus = new StatusService($conexao, $status);
             $selecionar = $novostatus->recuperarStatus();
-                        
-            foreach ($dados as $ordem) {
-                if ($ordem->id == isset($_GET['id'])){
             
-                ?>
+            foreach ($dados as $ordem)
+            {
+                if($ordem->id == $_GET['id'])           
+                        
+             {
+               
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ordem de Serviço</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Editar Ordem de Serviço</h2>
+      
                 <form action="../backend/oficina_controller.php?acao=editar_ordem" method="POST">
                     <input type="hidden" name="id" value="<?php echo $ordem->id; ?>">
                     <div class="form-group">
@@ -69,16 +73,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                 </form>
-                <?php
-                break;    
-        } else {
-                echo '<p>Ordem de serviço não encontrada.</p>';
-            }
-
-        }
-        ?>
+                <?php break;  }?>
+                <?php } ?>
         <div class="mt-3">
-            <a href="listar_ordens.php" class="btn btn-secondary">Voltar para Lista de Ordens</a>
+            <a href="../backend/oficina_controller.php?acao=listar" class="btn btn-secondary">Voltar para Lista de Ordens</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
