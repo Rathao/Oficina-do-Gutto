@@ -73,6 +73,7 @@ if($acao == 'inserir_cliente') {
   
 }else if ($acao == 'editar_ordem') {  
     $editarOrdem = new OrdensServico();
+    $editarOrdem->__set('id', $_POST['id']); 
     $editarOrdem->__set('cliente_id', $_POST['cliente_id']);
     $editarOrdem->__set('veiculo_id', $_POST['veiculo_id']);
     $editarOrdem->__set('data_abertura', $_POST['data_abertura']);
@@ -90,12 +91,14 @@ if($acao == 'inserir_cliente') {
     header('Location: oficina_controller.php?acao=ordem_editada');
 }
 else if ($acao == 'excluir_ordem') {  
-    $editarOrdem = new OrdensServico();
-    $editarOrdem->__set(':id', $_POST['id']); 
+    // print_r($_GET); 
+    $excluirOrdem = new OrdensServico();
+    $excluirOrdem->__set('id',$_GET['id']);
+
     $conexao = new Conexao();
 
-    $editarOrdens = new OrdemServico($conexao, $editarOrdem);   
-    $editarOrdens->excluirOrdemServico();
+    $excluirService = New OrdemServico($conexao, $excluirOrdem);
+    $excluirService->excluirOrdemServico();
 
     header('Location: oficina_controller.php?acao=ordem_excluida');
 }

@@ -6,6 +6,15 @@
     <title>Listar Ordens de Serviço</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../src/css/style.css">
+    <script src="https://kit.fontawesome.com/e5e06525b0.js" crossorigin="anonymous"></script>
+    <script>
+      function remover(id){
+        location.href="../backend/oficina_controller.php?acao=excluir_ordem&id="+id;
+      }
+      function editar(id) {
+        location.href="editar_ordem.php?id="+id;
+      }
+    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -21,6 +30,7 @@
     <?php } ?>
 
         <h2>Lista de Ordens de Serviço</h2>
+     
         <?php
                      
             $dados = json_decode($_GET['dados'],true);   
@@ -48,9 +58,9 @@
                     echo '<td>' . $dado['status'] . '</td>';
                     echo '<td>' . number_format($dado['valor_total'], 2, ',', '.') . '</td>';
                     echo '<td>';
-                    echo '<a href="editar_ordem.php?id=' . $dado['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
-                    echo '<a href="../backend/cancelar_ordem.php?id=' . $dado['id'] . '" class="btn btn-danger btn-sm">Cancelar</a>';
-                    echo '<a href="../backend/oficina_controller.php?acao=excluir_ordem" class="btn btn-danger btn-sm">Excluir</a>';
+                    echo '<i class="fa-regular fa-pen-to-square fa-lg text-info" onclick="editar('.$dado['id'].')"></i>';
+                   // echo '<a href="editar_ordem.php?id=' . $dado['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
+                    echo ' <i class="fa-solid fa-trash fa-lg text-danger " onclick="remover('. $dado['id'].' )"></i>';
                     echo '</td>';
                     echo '</tr>';
                 }

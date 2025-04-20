@@ -131,13 +131,19 @@ class OrdemServico {
 		$stmt->bindValue(8, $this->salvarOrdemServico->__get('status'));
 		$stmt->bindValue(9, $this->salvarOrdemServico->__get('id'));
 		$stmt->execute();	
+		$stmt->errorInfo();
 		
-	}
-	public function excluirOrdemServico(){
-		$query = 'DELETE FROM ordens_servico WHERE id = :id';
+	}public function excluirOrdemServico(){
+		$query = 'DELETE FROM `ordens_servico` WHERE id = :id';
 		$stmt = $this->conexao->prepare($query);
-		$stmt->bindValue(':id', $this->salvarOrdemServico->__get('id'));
-		$stmt->execute();
+		$stmt->bindValue(':id', $this->salvarOrdemServico->__get( 'id'));
+	
+		if ($stmt->execute()) {
+			return true; 
+		} else {
+			print_r($stmt->errorInfo()); 
+			return false; 
+		}
 	}
 }
 ?>
