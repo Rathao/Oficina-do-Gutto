@@ -58,8 +58,7 @@
                     echo '<td>' . $dado['status'] . '</td>';
                     echo '<td>' . number_format($dado['valor_total'], 2, ',', '.') . '</td>';
                     echo '<td>';
-                    echo '<i class="fa-regular fa-pen-to-square fa-lg text-info" onclick="editar('.$dado['id'].')"></i>';
-                   // echo '<a href="editar_ordem.php?id=' . $dado['id'] . '" class="btn btn-primary btn-sm mr-2">Editar</a>';
+                    echo '<i class="fa-regular fa-pen-to-square fa-lg text-info mr-1" onclick="editar('.$dado['id'].')"></i>';
                     echo ' <i class="fa-solid fa-trash fa-lg text-danger " onclick="remover('. $dado['id'].' )"></i>';
                     echo '</td>';
                     echo '</tr>';

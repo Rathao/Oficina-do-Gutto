@@ -51,7 +51,7 @@
 			$stmt->execute();
 		}
 		public function recuperarVeiculo() {
-			$query = 'SELECT id, nome from veiculos' ;
+			$query = 'SELECT id, modelo from veiculos' ;
 			$stmt = $this->conexao->prepare($query);			
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -145,5 +145,66 @@ class OrdemServico {
 			return false; 
 		}
 	}
+}
+
+class AgendamentoService {
+	private $conexao;
+	private $agendamentos;
+
+	public function __construct(Conexao $conexao, Agendamentos $agendamentos) {
+		$this->conexao = $conexao->conectar();
+		$this->agendamentos = $agendamentos;
+	}
+	public function novoAgendamento () {
+		$query = "INSERT INTO agendamentos 
+		( cliente_id, veiculo_id, data_agendamento, hora_agendamento, servico_solicitado)
+		VALUES
+		(:cliente_id, :veiculo_id, :data_agendamento, :hora_agendamento, :servico_solicitado)";
+		$stmt = $this->conexao->prepare($query);
+		$stmt->bindValue('cliente_id', $this->agendamentos->__get(':cliente_id'));
+		$stmt->bindValue('veiculo_id', $this->agendamentos->__get(':veiculo_id'));
+		$stmt->bindValue('data_agendamento', $this->agendamentos->__get(':data_agendamento'));
+		$stmt->bindValue('hora_agendamento', $this->agendamentos->__get(':hora_agendamento'));
+		$stmt->bindValue('servico_solicitado', $this->agendamentos->__get(':servico_solicitado'));
+		$stmt->execute();
+		$stmt->errorInfo();
+
+
+	}
+	public function listarAgendamento () {
+		$query = 'SELECT c.id AS cliente_id, c.nome AS cliente_nome, v.id AS veiculo_id, v.modelo AS veiculo_modelo, ag.*
+		FROM agendamentos ag INNER JOIN clientes c ON ag.cliente_id = c.id INNER JOIN veiculos v ON ag.veiculo_id = v.id;';
+		$stmt = $this->conexao->prepare($query);		
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_OBJ);
+	}
+
+	public function editarAgendamento () {
+		$query = "UPDATE agendamentos SET status = 'Cancelado' WHERE id = :id";
+		$stmt = $this->conexao->prepare($query);
+		$stmt->bindValue(':id', $this->agendamentos->__get( 'id'));
+	
+		if ($stmt->execute()) {
+			return true; 
+		} else {
+			print_r($stmt->errorInfo()); 
+			return false; 
+		}
+	}
+
+	public function excluirAgendamento () {
+		$query = 'DELETE FROM `agendamentos` WHERE id = :id';
+		$stmt = $this->conexao->prepare($query);
+		$stmt->bindValue(':id', $this->agendamentos->__get( 'id'));
+	
+		if ($stmt->execute()) {
+			return true; 
+		} else {
+			print_r($stmt->errorInfo()); 
+			return false; 
+		}
+	}
+
+
 }
 ?>

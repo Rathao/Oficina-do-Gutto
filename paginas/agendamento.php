@@ -1,18 +1,18 @@
 <?php
-require_once '../backend/conexao.php';
+require '../backend/conexao.php';
+require '../backend/oficina_model.php';
+require '../backend/oficina_service.php';
 
-try {
-    $stmt_clientes = $pdo->query("SELECT id, nome FROM clientes ORDER BY nome");
-    $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
+$conexao = new Conexao;
 
-    $stmt_veiculos = $pdo->query("SELECT id, marca, modelo, placa FROM veiculos ORDER BY marca, modelo");
-    $veiculos = $stmt_veiculos->fetchAll(PDO::FETCH_ASSOC);
+$cliente = new Clientes;
+$clienteservice = new CadastroService($conexao, $cliente);  
+$clientes = $clienteservice->recuperarCliente() ;
 
-} catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
-    $clientes = [];
-    $veiculos = [];
-}
+$veiculo = new Veiculos;
+$veiculoService = new CadastroSerVeiculo($conexao, $veiculo);
+$veiculos = $veiculoService->recuperarVeiculo();
+
 ?>
 
 <!DOCTYPE html>
@@ -27,13 +27,13 @@ try {
 <body>
     <div class="container mt-5">
         <h2>Agendar Serviço</h2>
-        <form action="../backend/processar_agendamento.php" method="POST">
+        <form action="../backend/oficina_controller.php?acao=novo_agendamento" method="POST">
             <div class="form-group">
                 <label for="cliente_id">Cliente:</label>
                 <select class="form-control" id="cliente_id" name="cliente_id" required>
                     <option value="">Selecione o Cliente</option>
                     <?php foreach ($clientes as $cliente): ?>
-                        <option value="<?php echo $cliente['id']; ?>"><?php echo htmlspecialchars($cliente['nome']) . ' (ID: ' . $cliente['id'] . ')'; ?></option>
+                        <option value="<?php echo $cliente->id; ?>"><?php echo htmlspecialchars($cliente->nome ); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -42,7 +42,7 @@ try {
                 <select class="form-control" id="veiculo_id" name="veiculo_id" required>
                     <option value="">Selecione o Veículo</option>
                     <?php foreach ($veiculos as $veiculo): ?>
-                        <option value="<?php echo $veiculo['id']; ?>"><?php echo htmlspecialchars($veiculo['marca'] . ' ' . $veiculo['modelo'] . ' - Placa: ' . $veiculo['placa'] . ' (ID: ' . $veiculo['id'] . ')'); ?></option>
+                        <option value="<?php echo $veiculo->id; ?>"><?php echo htmlspecialchars($veiculo->modelo ); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

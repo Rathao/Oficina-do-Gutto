@@ -59,8 +59,7 @@ if($acao == 'inserir_cliente') {
     $novasordens = new OrdemServico($conexao, $novaordem);
     $novasordens->salvarOrdemServico();
 
-    echo 'Sua ordem de serviço foi cadastrada.';
-    header('Location: ../paginas/listar_ordens.php?acao=criada_ordem');
+    header('Location: oficina_controller.php?acao=criada_ordem');
 
 }else if ($acao =='listar' || $acao =='criada_ordem' || $acao =='ordem_editada' || $acao == 'ordem_excluida') {  
     $conexao = new Conexao;
@@ -91,7 +90,7 @@ if($acao == 'inserir_cliente') {
     header('Location: oficina_controller.php?acao=ordem_editada');
 }
 else if ($acao == 'excluir_ordem') {  
-    // print_r($_GET); 
+    
     $excluirOrdem = new OrdensServico();
     $excluirOrdem->__set('id',$_GET['id']);
 
@@ -101,7 +100,57 @@ else if ($acao == 'excluir_ordem') {
     $excluirService->excluirOrdemServico();
 
     header('Location: oficina_controller.php?acao=ordem_excluida');
+
+      // Lógica responsável pelo processo no cadastro de novas ordens.
+}else if ($acao == 'novo_agendamento') {
+    $novoAgendamento = new Agendamentos();
+    $novoAgendamento->__set(':cliente_id', $_POST['cliente_id']);
+    $novoAgendamento->__set(':veiculo_id', $_POST['veiculo_id']);
+    $novoAgendamento->__set(':data_agendamento', $_POST['data_agendamento']);
+    $novoAgendamento->__set(':hora_agendamento', $_POST['hora_agendamento']);
+    $novoAgendamento->__set(':servico_solicitado', $_POST['servico_solicitado']);
+
+    $conexao = new Conexao();
+
+    $novosAgendamentos = new AgendamentoService($conexao, $novoAgendamento);
+    $novosAgendamentos->novoAgendamento();  
+	
+    header('Location: oficina_controller.php?acao=listar_agenda');
+    
+}else if ($acao == 'listar_agenda') {    
+    // echo 'chegamos até aqui';
+    $listarAgendamento = new Agendamentos();
+    $conexao = new Conexao;
+
+    $listarAgenda = new AgendamentoService($conexao, $listarAgendamento);
+    $dados = $listarAgenda->listarAgendamento();    
+
+    $url = '../paginas/listar_agendamento.php?dados='.urlencode(json_encode($dados));
+    header ('Location:'.$url);    
+
+}else if ( $acao == 'excluir_agenda') {
+    $excluirAgenda = new Agendamentos();
+    $excluirAgenda->__set('id',$_GET['id']);
+
+    $conexao = new Conexao();
+
+    $excluirService = New AgendamentoService($conexao, $excluirAgenda);
+    $excluirService->excluirAgendamento();
+
+    header('Location: oficina_controller.php?acao=listar_agenda');
+}else if ( $acao == 'atualizar_agenda') {
+    $editarAgenda = new Agendamentos();
+    $editarAgenda->__set('id',$_GET['id']);
+    
+
+    $conexao = new Conexao();
+
+    $editarService = New AgendamentoService($conexao, $editarAgenda);
+    $editarService->editarAgendamento();
+
+    header('Location: oficina_controller.php?acao=listar_agenda');
 }
+
 
 
 ?>

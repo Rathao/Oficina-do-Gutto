@@ -29,8 +29,8 @@ $clientes = $clienteservice->recuperarCliente() ;
                     <div class="card-body">
                         <h5 class="card-title">Agendamentos</h5>
                         <p class="card-text">Gerenciar os agendamentos de serviços.</p>
-                        <a href="paginas/agendamento.php" class="btn btn-primary">Novo Agendamento</a>
-                        <a href="paginas/listar_agendamento.php" class="btn btn-info ml-2">Listar Agendamentos</a>
+                        <a href="paginas/agendamento.php" class="btn btn-primary mb-1 ml-2">Novo Agendamento</a>
+                        <a href="backend/oficina_controller.php?acao=listar_agenda" class="btn btn-info ml-2">Listar Agendamentos</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@ $clientes = $clienteservice->recuperarCliente() ;
                     <div class="card-body">
                         <h5 class="card-title">Ordens de Serviço</h5>
                         <p class="card-text">Gerenciar as ordens de serviço da oficina.</p>
-                        <a href="paginas/nova_ordem.php" class="btn btn-success">Nova Ordem</a>
+                        <a href="paginas/nova_ordem.php" class="btn btn-success mb-1 ml-2">Nova Ordem</a>
                         <a href="backend/oficina_controller.php?acao=listar" class="btn btn-info ml-2">Listar Ordens</a>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ $clientes = $clienteservice->recuperarCliente() ;
                     <div class="card-body">
                         <h5 class="card-title">Cadastro</h5>
                         <p class="card-text">Cadastre novos clientes e veículos.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalCadastroCliente">Cadastrar Cliente</a>
+                        <a href="#" class="btn btn-primary mb-1 ml-2" data-toggle="modal" data-target="#modalCadastroCliente">Cadastrar Cliente</a>
                         <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#modalCadastroVeiculo">Cadastrar Veículo</a>
                     </div>
                 </div>
