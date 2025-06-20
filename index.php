@@ -17,9 +17,75 @@ $clientes = $clienteservice->recuperarCliente() ;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Principal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+            }
+        }
+        </style>    
+    <link href="dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Controle da Oficina</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+ 
+  <div class="navbar-nav">
+    
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <span data-feather="home"></span>Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ordens de Serviço
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Nova Ordem de Serviço</a></li>
+                    <li><a class="dropdown-item" href="#">Lista de Ordens Serviços</a></li>                    
+                </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="shopping-cart"></span>Agendamentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>Cadastro de Clientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="bar-chart-2"></span>Cadastros de veiculos</a>
+          </li>        
+        </ul>
+    </div>
+    </nav>
+ 
     <div class="container mt-5">
         <h1 class="mb-4">Painel Principal da Oficina</h1>
 

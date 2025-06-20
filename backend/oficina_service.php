@@ -180,7 +180,7 @@ class AgendamentoService {
 	}
 
 	public function editarAgendamento () {
-		$query = "UPDATE agendamentos SET status = 'Cancelado' WHERE id = :id";
+		$query = "UPDATE agendamentos SET status = 'CANCELADO' WHERE id = :id";
 		$stmt = $this->conexao->prepare($query);
 		$stmt->bindValue(':id', $this->agendamentos->__get( 'id'));
 	

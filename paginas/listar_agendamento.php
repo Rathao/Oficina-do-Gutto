@@ -20,10 +20,8 @@
     <div class="container mt-5">
         <h2>Lista de Agendamentos</h2>
         <?php
-            // Incluir o arquivo PHP para buscar os dados
-            $dados = json_decode($_GET['dados'],true);  
+            $dados = json_decode($_GET['dados'],true);         
         
-
             if (!empty($dados)) {
                 echo '<table class="table table-striped">';
                 echo '<thead>';
