@@ -25,6 +25,12 @@
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		}
+		public function contarCliente() {
+			$query = 'SELECT COUNT(*) AS total_clientes FROM clientes';
+			$stmt = $this->conexao->prepare($query);
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		}
 
 		
 	}
@@ -53,6 +59,12 @@
 		public function recuperarVeiculo() {
 			$query = 'SELECT id, modelo from veiculos' ;
 			$stmt = $this->conexao->prepare($query);			
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		}
+		public function contarVeiculo() {
+			$query = 'SELECT COUNT(*) AS total_veiculos FROM veiculos';
+			$stmt = $this->conexao->prepare($query);
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		}
@@ -204,6 +216,13 @@ class AgendamentoService {
 			return false; 
 		}
 	}
+	public function contarAgendamento() {
+			$query = 'SELECT COUNT(*) AS total_agendamentos FROM agendamentos';
+			$stmt = $this->conexao->prepare($query);
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		}
+
 
 
 }

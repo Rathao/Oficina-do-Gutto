@@ -11,9 +11,6 @@ $dados = $ordemServico->listarOdemServico();
 $status = new Status;
 $novostatus = new StatusService($conexao, $status);
 $selecionar = $novostatus->recuperarStatus();
-echo'<pre>';
-print_r($dados);
-echo'</pre>';
 
 foreach ($dados as $ordem) {
     if ($ordem->id == $_GET['id']) {

@@ -57,25 +57,25 @@ $selecionar = $novostatus->recuperarStatus();
                         </a>
                     </li>
                     <li class="nav-links">
-                        <a href="paginas/nova_ordem.php">
+                        <a href="../paginas/nova_ordem.php">
                             <i class='bxr  bx-bar-chart-square icon'></i>
                             <span class="text nav-text">Nova Ordem</span>
                         </a>
                     </li>
                     <li class="nav-links">
-                        <a href="backend/oficina_controller.php?acao=listar">
+                        <a href="../backend/oficina_controller.php?acao=listar">
                             <i class="bxr  bx-clipboard-check icon"></i>
                             <span class="text nav-text">Ordens de Serviços</span>
                         </a>
                     </li>
                     <li class="nav-links">
-                        <a href="paginas/agendamento.php">
+                        <a href="../paginas/agendamento.php">
                             <i class="bxr bx-calendar-alt icon"></i>
                             <span class="text nav-text">Agendamentos</span>
                         </a>
                     </li>
                     <li class="nav-links">
-                        <a href="backend/oficina_controller.php?acao=listar_agenda">
+                        <a href="../backend/oficina_controller.php?acao=listar_agenda">
                             <i class="bxr  bx-calendar-detail icon"></i>
                             <span class="text nav-text">Agenda</span>
                         </a>

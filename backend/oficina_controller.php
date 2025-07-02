@@ -160,4 +160,11 @@ switch ($acao) {
         header('Location: oficina_controller.php?acao=listar_agenda');
         break;
 }
+
+// contar os clientes 
+
+// contar os veiculos
+// contar os agendamentos
+// listar ordens recentes
+// dividir em porcentagem os status
 ?>

@@ -5,9 +5,23 @@ require 'backend/oficina_service.php';
 
 $conexao = new Conexao;
 $cliente = new Clientes;
+$veiculo = new Veiculos;
+$agenda = new Agendamentos;
+$ordemServico = new OrdensServico;
 
 $clienteservice = new CadastroService($conexao, $cliente);
 $clientes = $clienteservice->recuperarCliente();
+$clientesContar = $clienteservice->contarCliente();
+
+
+$veiculoservice = new CadastroSerVeiculo($conexao, $veiculo);
+$veiculos = $veiculoservice->contarVeiculo();
+
+$agendaservice = new AgendamentoService($conexao, $agenda);
+$agendamento = $agendaservice->contarAgendamento();
+
+$ordensservice = new OrdemServico($conexao, $ordemServico);
+$ordemServicos = $ordensservice->listarOdemServico();
 
 ?>
 <!DOCTYPE html>
@@ -22,6 +36,7 @@ $clientes = $clienteservice->recuperarCliente();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e5e06525b0.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="src/estilo.css">
 </head>
@@ -111,12 +126,100 @@ $clientes = $clienteservice->recuperarCliente();
                     </div>
                 </li>
             </div>
+
         </div>
     </nav>
 
     <section class="home">
-        <div class="text"> Dashboard
+        <div class="content">
+            <div class="titulo-secao">
+                <h2>Dashboard ...</h2>
+            </div>
+            <div class="box-info">
+                <div class="box-info-single">
+                    <div class="info-text">
+                        <h3>Clientes</h3>
+                        <?php foreach ($clientesContar as $key => $cliente) {
+                            if (!empty($cliente)) {
+                                echo "<p>Total: " . $cliente->total_clientes . "</p>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <i class="bxr  bx-user icon"></i>
+                </div>
+                <div class="box-info-single">
+                    <div class="info-text">
+                        <h3>Veículos</h3>
+                        <?php foreach ($veiculos as $key => $veiculo) {
+                            if (!empty($veiculo)) {
+                                echo "<p>Total: " . $veiculo->total_veiculos . "</p>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <i class="bxr  bx-car icon"></i>
+                </div>
+                <div class="box-info-single">
+                    <div class="info-text">
+                        <h3>Agendamentos</h3>
+                        <?php foreach ($agendamento as $key => $agenda) {
+                            if (!empty($agenda)) {
+                                echo "<p>Total: " . $agenda->total_agendamentos . "</p>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <i class='bxr  bx-calendar-alt'></i>
+                </div>
 
+            </div>
+        </div>
+        <div class="recent-orders">
+            <h2>Ordens de Serviços Recentes</h2>
+            <table id="recent-orders">
+                <thead>
+                    <tr>
+                        <th>Clientes</th>
+                        <th>Veiculos</th>
+                        <th>Valor do Serviço</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (!empty($ordemServicos)) {
+                        foreach ($ordemServicos as $ordem) {
+                            echo '<tr>';                           
+                            echo '<td>' . $ordem->cliente_nome . '</td>';
+                            echo '<td>' . $ordem->veiculo_modelo. '</td>';                           
+                            echo '<td>' . number_format($ordem->valor_total, 2, ',', '.') . '</td>';    
+                            echo '<td>' . $ordem->status . '</td>';                           
+                            echo '</tr>';
+                        }                       
+                    } else {
+                        echo '<p>Nenhuma ordem de serviço encontrada.</p>';
+                        print_r($ordemServicos);
+                    }                    
+                    ?>
+                </tbody>
+            </table>
+            <a href="backend/oficina_controller.php?acao=listar">Veja lista completa</a>
+        </div>
+        <div class="rigth">
+            <h2 class="chart-heading">Status das Ordens </h2>
+            <div class="programin-stats">
+                <div class="chart-container">
+                    <canvas class="my-chart"></canvas>
+                </div>
+                <div class="detalhes" id="resultadosPorcentagem">
+                    <ul>
+                        <li>Concluido:<span  class="porcentagem"></span> </li>
+                        <li>Cancelado:<span class="porcentagem"></span></li>
+                        <li>Em Andamento:<span class="porcentagem"></span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -220,6 +323,7 @@ $clientes = $clienteservice->recuperarCliente();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="src/script.js"></script>
 </body>
 
