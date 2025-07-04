@@ -149,7 +149,7 @@ $(document).ready(function() {
         if (contagemStatus.hasOwnProperty(status)) {
             const contagem = contagemStatus[status];
             const porcentagem = (contagem / totalLinhas) * 100;
-            htmlResultados += `<li><strong>${status.charAt(0).toUpperCase() + status.slice(1)}:</strong> (${porcentagem.toFixed(2)}%)</li>`;
+            htmlResultados += `<li><strong>${status.charAt(0).toUpperCase() + status.slice(1)}:</strong><span class="porcentagem"> ${porcentagem.toFixed(2)}%</span></li>`;
         }
     }
     htmlResultados += '</ul>';

@@ -175,7 +175,7 @@ $selecionar = $novostatus->recuperarStatus();
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Criar Ordem de Serviço</button>
-                    <button type="submit" class="btn btn-info"><a href="../index.php">Cancelar</a></button>
+                    <a href="../index.php" class="btn btn-secondary">Cancelar</a>
                 </form>
             </div>
 

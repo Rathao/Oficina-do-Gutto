@@ -327,8 +327,7 @@ body.dark .switch::before {
     max-width: 960px;
     margin: 30px auto;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;   
 }
 
 .home .text h2 {
@@ -337,19 +336,17 @@ body.dark .switch::before {
 }
 
 .form-group label {
-    font-weight: bold;
+    font-size: 16px;
     color: var(--text-color);
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: var(--color-primary);   
 
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: var(--primary-color);    
 }
 
 .btn-secondary {
@@ -362,26 +359,23 @@ body.dark .switch::before {
     border-color: #4e555b;
 }
 
-.mt-3 {
-    margin-top: 1.5rem;
-}
 
 /* Estilos para a tabela de listagem */
 section .recent-orders {
     margin-top: 2rem ;
-    margin: 0 20px;
+    margin: 20px;   
 
 }
 
-section .recent-orders h2 {
+section .recent-orders h2 {    
     margin-bottom: 0.8rem;
     color: var(--text-color);
 }
 
 section .recent-orders table {
     background: var(--color-white);
-    width: 100%;
-    border-radius: var(--card-border-radius);
+    width:100% ;
+    border-radius: 5px;
     padding: var(--card-padding);
     text-align: center;
     box-shadow: var(--box-shadow);
@@ -393,6 +387,7 @@ section .recent-orders table:hover {
 }
 
 section table tbody td {
+    
     height: 2.8rem;
     border-bottom: 1px solid var(--color-light);
     color: var(--color-dark-variant);
@@ -490,11 +485,11 @@ text-align: center;
     list-style: none;
     padding: 0;   
 }
-.programin-stats .detalhes #resultadosPorcentagem ul li{
+.programin-stats .detalhes ul li{
     font-size: 16px;
     margin: 12px;
 }
-.programin-stats .detalhes #resultadosPorcentagem .porcentagem{
+.programin-stats .detalhes .porcentagem{
     font-weight: 800;
     color: var(--color-danger);
 }

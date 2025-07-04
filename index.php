@@ -19,6 +19,7 @@ $veiculos = $veiculoservice->contarVeiculo();
 
 $agendaservice = new AgendamentoService($conexao, $agenda);
 $agendamento = $agendaservice->contarAgendamento();
+$agendaCancelda = $agendaservice->agendaCancelada();
 
 $ordensservice = new OrdemServico($conexao, $ordemServico);
 $ordemServicos = $ordensservice->listarOdemServico();
@@ -166,6 +167,13 @@ $ordemServicos = $ordensservice->listarOdemServico();
                         <?php foreach ($agendamento as $key => $agenda) {
                             if (!empty($agenda)) {
                                 echo "<p>Total: " . $agenda->total_agendamentos . "</p>";
+                                
+                            }
+                        }
+                       foreach ($agendaCancelda as $key => $agenda) {
+                            if (!empty($agenda)) {
+                                echo "<p>Total Cancelado: " . $agenda->agenda_cancelada . "</p>";
+                                
                             }
                         }
                         ?>

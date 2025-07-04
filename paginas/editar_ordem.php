@@ -131,12 +131,12 @@ foreach ($dados as $ordem) {
                             <div class="form-group">
                                 <label for="cliente_id">Cliente:</label>
                                 <input type="text" class="form-control" id="cliente_id" name="cliente_id"
-                                    value="<?php echo $ordem->cliente_nome; ?>" required>
+                                    value="<?php echo $ordem->cliente_id; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="veiculo_id">Veículo:</label>
                                 <input type="text" class="form-control" id="veiculo_id" name="veiculo_id"
-                                    value="<?php echo $ordem->veiculo_modelo; ?>" required>
+                                    value="<?php echo $ordem->veiculo_id; ?>" required>                                    
                             </div>
                             <div class="form-group">
                                 <label for="data_abertura">Data de Abertura:</label>

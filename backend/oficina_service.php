@@ -217,11 +217,18 @@ class AgendamentoService {
 		}
 	}
 	public function contarAgendamento() {
-			$query = 'SELECT COUNT(*) AS total_agendamentos FROM agendamentos';
+			$query = 'SELECT COUNT(*) AS total_agendamentos FROM agendamentos where status = "EM ANDAMENTO" ';
 			$stmt = $this->conexao->prepare($query);
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		}
+	public function agendaCancelada() {
+			$query = 'SELECT COUNT(*) AS agenda_cancelada FROM agendamentos where status = "CANCELADO" ';
+			$stmt = $this->conexao->prepare($query);
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		}
+
 
 
 

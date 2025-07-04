@@ -110,38 +110,23 @@
   </nav>
 
   <section class="home">
-    <div class="text">
-      <div class=" mt-5">
-        <?php if (isset($_GET['acao']) && $_GET['acao'] == 'criada_ordem') { ?>
-          <div class="bg-success pt-2 text-white d-flex justify-content-center">
-            <h5>Ordem de Serviço cadastrada com sucesso!</h5>
-          </div>
-        <?php } ?>
-        <?php if (isset($_GET['acao']) && $_GET['acao'] == 'ordem_editada') { ?>
-          <div class="bg-success pt-2 text-white d-flex justify-content-center">
-            <h5>Ordem de Serviço editada com sucesso!</h5>
-          </div>
-        <?php } ?>
-
-        <h2>Lista de Ordens de Serviço</h2>
-
+    <div class="recent-orders">
+      <h2>Lista de Ordens de Serviço</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente </th>
+            <th>Veículo </th>
+            <th>Data Abertura</th>
+            <th>Status</th>
+            <th>Valor Total</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
         <?php
-
         $dados = json_decode($_GET['dados'], true);
-
         if (!empty($dados)) {
-          echo '<table class="table table-striped recent-orders">';
-          echo '<thead>';
-          echo '<tr>';
-          echo '<th>ID</th>';
-          echo '<th>Cliente </th>';
-          echo '<th>Veículo </th>';
-          echo '<th>Data Abertura</th>';
-          echo '<th>Status</th>';
-          echo '<th>Valor Total</th>';
-          echo '<th>Ações</th>';
-          echo '</tr>';
-          echo '</thead>';
           echo '<tbody>';
           foreach ($dados as $dado) {
             echo '<tr>';
@@ -163,10 +148,7 @@
           echo '<p>Nenhuma ordem de serviço encontrada.</p>';
         }
         ?>
-        <div class="mt-3">
-          <a href="../index.php" class="btn btn-secondary">Voltar ao Painel</a>
-        </div>
-      </div>
+        <a href="../index.php">Voltar ao Painel</a>
     </div>
   </section>
 

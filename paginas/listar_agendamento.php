@@ -109,28 +109,27 @@
     </nav>
 
     <section class="home">
-        <div class="text">
-            <div class="mt-5 tabela ">
-                <h2>Lista de Agendamentos</h2>
+        <div class="recent-orders">
+
+            <h2>Lista de Agendamentos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Veículo</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Serviço Solicitado</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
                 <?php
                 $dados = json_decode($_GET['dados'], true);
-
                 if (!empty($dados)) {
-                    echo '<table class="table table-striped">';
-                    echo '<thead>';
-                    echo '<tr>';
-                    echo '<th>ID</th>';
-                    echo '<th>Cliente ID</th>';
-                    echo '<th>Veículo ID</th>';
-                    echo '<th>Data</th>';
-                    echo '<th>Hora</th>';
-                    echo '<th>Serviço Solicitado</th>';
-                    echo '<th>Status</th>';
-                    echo '<th>Ações</th>';
-                    echo '</tr>';
-                    echo '</thead>';
-                    echo '<tbody>';
                     foreach ($dados as $dado) {
+                        echo '<tbody>';
                         echo '<tr>';
                         echo '<td>' . $dado['id'] . '</td>';
                         echo '<td>' . $dado['cliente_nome'] . '</td>';
@@ -151,10 +150,7 @@
                     echo '<p>Nenhum dado encontrado.</p>';
                 }
                 ?>
-                <div class="mt-3">
-                    <a href="../index.php" class="btn btn-secondary">Voltar ao Painel</a>
-                </div>
-            </div>
+                <a href="../index.php">Voltar ao Painel</a>
         </div>
     </section>
 
